@@ -9,15 +9,21 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "varioqub",
-            targets: ["varioqub"]),
+            targets: ["MetricaAdapter", "MetricaAdapterReflection", "Varioqub", "VQSwiftProtobuf"]),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "varioqub"),
-        .testTarget(
-            name: "varioqubTests",
-            dependencies: ["varioqub"]),
+            name: "varioqub",
+            path: "Sources",
+            cSettings:
+                [.headerSearchPath("Headers")]),
+        .binaryTarget(name: "MetricaAdapter",
+                      path: "Sources/MetricaAdapter.xcframework"),
+        .binaryTarget(name: "MetricaAdapterReflection",
+                      path: "Sources/MetricaAdapterReflection.xcframework"),
+        .binaryTarget(name: "Varioqub",
+                      path: "Sources/Varioqub.xcframework"),
+        .binaryTarget(name: "VQSwiftProtobuf",
+                      path: "Sources/VQSwiftProtobuf.xcframework"),
     ]
 )
