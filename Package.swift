@@ -1,33 +1,44 @@
-// swift-tools-version:5.7
+// swift-tools-version:5.10
 import PackageDescription
 
 let package = Package(
-    name: "varioqub",
+    name: "Varioqub",
     platforms: [
-        .iOS(.v11) // Ensures compatibility with iOS 11 and later
+        .iOS(.v12) // Ensures compatibility with iOS 11 and later
     ],
     products: [
         .library(
-            name: "varioqub",
-            targets: ["varioqub"]),
+            name: "Varioqub",
+            targets: ["Varioqub"]),
     ],
     dependencies: [
         .package(url: "https://github.com/yandexmobile/metrica-sdk-ios", from: "4.5.2"), // YandexMobileMetrica
         // Add any other dependencies required here
     ],
     targets: [
+        .binaryTarget(
+            name: "MetricaAdapter",
+            path: "MetricaAdapter.xcframework" // Adjust the path to where the .xcframework is located
+        ),
+        .binaryTarget(
+            name: "MetricaAdapterReflection",
+            path: "MetricaAdapterReflection.xcframework" // Adjust the path to where the .xcframework is located
+        ),
+        .binaryTarget(
+            name: "VQSwiftProtobuf",
+            path: "VQSwiftProtobuf.xcframework" // Adjust the path to where the .xcframework is located
+        ),
+        .binaryTarget(
+            name: "VarioqubMain",
+            path: "Varioqub.xcframework" // Adjust the path to where the .xcframework is located
+        ),
         .target(
-            name: "varioqub",
+            name: "Varioqub",
             dependencies: [
                 .product(name: "YandexMobileMetrica", package: "metrica-sdk-ios"), // Explicit declaration of the product and package
                 "MetricaAdapter" // Ensure this exists or is linked correctly
             ],
-            path: "varioqub"
+            path: ""
         ),
-        .binaryTarget(
-            name: "MetricaAdapter",
-            path: "Sources/MetricaAdapter.xcframework" // Adjust the path to where the .xcframework is located
-        ),
-    ],
-    swiftLanguageVersions: [.v5]
+    ]
 )

@@ -1,2 +1,0 @@
-EULA could be found at:
-https://yandex.com/legal/appmetrica_sdk_agreement/

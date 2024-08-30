@@ -1,4 +1,0 @@
-framework module MetricaAdapter {
-  header "MetricaAdapter-Swift.h"
-  requires objc
-}
