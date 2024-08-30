@@ -1,29 +1,33 @@
-// swift-tools-version: 5.10
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
+// swift-tools-version:5.7
 import PackageDescription
 
 let package = Package(
     name: "varioqub",
+    platforms: [
+        .iOS(.v11) // Ensures compatibility with iOS 11 and later
+    ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "varioqub",
-            targets: ["MetricaAdapter", "MetricaAdapterReflection", "Varioqub", "VQSwiftProtobuf"]),
+            targets: ["varioqub"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/yandexmobile/metrica-sdk-ios", from: "4.5.2"), // YandexMobileMetrica
+        // Add any other dependencies required here
     ],
     targets: [
         .target(
             name: "varioqub",
-            path: "Sources",
-            cSettings:
-                [.headerSearchPath("Headers")]),
-        .binaryTarget(name: "MetricaAdapter",
-                      path: "Sources/MetricaAdapter.xcframework"),
-        .binaryTarget(name: "MetricaAdapterReflection",
-                      path: "Sources/MetricaAdapterReflection.xcframework"),
-        .binaryTarget(name: "Varioqub",
-                      path: "Sources/Varioqub.xcframework"),
-        .binaryTarget(name: "VQSwiftProtobuf",
-                      path: "Sources/VQSwiftProtobuf.xcframework"),
-    ]
+            dependencies: [
+                .product(name: "YandexMobileMetrica", package: "metrica-sdk-ios"), // Explicit declaration of the product and package
+                "MetricaAdapter" // Ensure this exists or is linked correctly
+            ],
+            path: "Sources/varioqub"
+        ),
+        .binaryTarget(
+            name: "MetricaAdapter",
+            path: "Sources/varioqub/Sources/MetricaAdapter.xcframework" // Adjust the path to where the .xcframework is located
+        ),
+    ],
+    swiftLanguageVersions: [.v5]
 )
