@@ -1,6 +1,6 @@
 import XCTest
 
-final class varioqubTests: XCTestCase {
+final class varioqubPackageTests: XCTestCase {
     func testVarioqub() throws {
     }
 }

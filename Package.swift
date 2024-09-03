@@ -1,24 +1,53 @@
-// swift-tools-version:5.7
+// swift-tools-version:5.6
 import PackageDescription
 
 let package = Package(
-    name: "Varioqub",
+    name: "VarioqubPackage",
     platforms: [
-        .iOS(.v13) // Ensures compatibility with iOS 13 and later
+        .iOS(.v11) // Укажите минимальную версию iOS, которая поддерживается вашим фреймворком
     ],
     products: [
+        // Продукты, которые будут доступны для использования в других проектах
         .library(
-            name: "Varioqub",
-            targets: ["Varioqub"]),
+            name: "VarioqubPackage",
+            targets: ["VarioqubPackage"]),
     ],
     targets: [
+        // Указываем пути к бинарным фреймворкам, которые теперь находятся в каталоге Sources
         .binaryTarget(
-            name: "VarioqubMain",
-            path: "Varioqub.xcframework" // Adjust the path to where the .xcframework is located
-        ),
-        .target(
             name: "Varioqub",
-            path: ""
+            path: "Sources/Varioqub.xcframework"
+        ),
+        .binaryTarget(
+            name: "MetricaAdapter",
+            path: "Sources/MetricaAdapter.xcframework"
+        ),
+        .binaryTarget(
+            name: "MetricaAdapterReflection",
+            path: "Sources/MetricaAdapterReflection.xcframework"
+        ),
+        .binaryTarget(
+            name: "VQSwiftProtobuf",
+            path: "Sources/VQSwiftProtobuf.xcframework"
+        ),
+        // Основной таргет, который будет ссылаться на вышеуказанные бинарные таргеты
+        .target(
+            name: "VarioqubPackage",
+            dependencies: [
+                "Varioqub",
+                "MetricaAdapter",
+                "MetricaAdapterReflection",
+                "VQSwiftProtobuf"
+            ],
+            path: "Sources",
+            publicHeadersPath: nil
+
+        ),
+        // Тесты для пакета
+        .testTarget(
+            name: "VarioqubPackageTests",
+            dependencies: ["VarioqubPackage"],
+            path: "Tests/VarioqubPackageTests"
         ),
     ]
 )
