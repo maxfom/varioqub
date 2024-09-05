@@ -19,10 +19,6 @@ let package = Package(
             path: "Sources/Varioqub.xcframework"
         ),
         .binaryTarget(
-            name: "MetricaAdapter",
-            path: "Sources/MetricaAdapter.xcframework"
-        ),
-        .binaryTarget(
             name: "MetricaAdapterReflection",
             path: "Sources/MetricaAdapterReflection.xcframework"
         ),
@@ -35,7 +31,6 @@ let package = Package(
             name: "VarioqubPackage",
             dependencies: [
                 "Varioqub",
-                "MetricaAdapter",
                 "MetricaAdapterReflection",
                 "VQSwiftProtobuf"
             ],
